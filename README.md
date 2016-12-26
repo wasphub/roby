@@ -1,4 +1,4 @@
 # roby
 {% for post in site.posts %}
-[{{ post.title }}]({{ post.url }})
+[{{ post.title }}](roby/{{ post.url }})
 {% endfor %}
