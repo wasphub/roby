@@ -51,7 +51,7 @@ This 'strange' signature is in fact very handy, and thanks to type inference we 
 	    {
 	    	First  = first,
 		Second = second,
- 	     	Third  = third,
+		Third  = third,
 		Fourth = fourth
 	    })
             where p.First.Equals("a", StringComparison.OrdinalIgnoreCase)
