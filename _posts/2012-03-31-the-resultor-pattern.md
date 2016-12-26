@@ -54,7 +54,7 @@ This 'strange' signature is in fact very handy, and thanks to type inference we 
 		Third  = third,
 		Fourth = fourth
 	    })
-            where p.First.Equals("a", StringComparison.OrdinalIgnoreCase)
+	    where p.First.Equals("a", StringComparison.OrdinalIgnoreCase)
 	    select p;
 
 The lambda expression we pass as the last parameter in the call defines an anonymous type, which thanks to type inference becomes the `Parse` function could therefore be something like this:
