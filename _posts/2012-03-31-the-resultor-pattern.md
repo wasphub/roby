@@ -27,7 +27,7 @@ Let's suppose we need a function which parses string, and for each one we want t
 	    public decimal  Fourth  { get; set; }    
 	}
 
-The body of the `Parse` function is doing some stupid calculations, but that's not the point, what I want to show here is that for even for simple cases like this one we need to define a special class `DTO`) just for the sake of returning four values for each parsed string. It feels like a "waste" of power. We need to define some static type to return our answers. And even more disturbing, it often happens that the caller does not really need all the values that we are returning, but just some of them. 
+The body of the `Parse` function is doing some stupid calculations, but that's not the point, what I want to show here is that for even for simple cases like this one we need to define a special class `DTO` just for the sake of returning four values for each parsed string. It feels like a "waste" of power. We need to define some static type to return our answers. And even more disturbing, it often happens that the caller does not really need all the values that we are returning, but just some of them. 
 
 But there is a way out. Type inference helps us to put a 'trick' in place and make anonymous types cross the function boundary. Let's look at our `Parse` function calculates those values and 'passes' them to the caller. This subtle change makes us think that we could do what we always do in such cases: call a function.
 
