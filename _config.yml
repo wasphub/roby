@@ -1,6 +1,2 @@
 theme: jekyll-theme-hacker
-permalink: /roby/:title
-pages_list:       
-  About: '/roby/about'
-  Atom: '/roby/atom.xml'
-  RSS: '/roby/rss.xml'
+permalink: /:title
