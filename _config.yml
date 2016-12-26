@@ -1,5 +1,5 @@
 theme: jekyll-theme-hacker
-permalink: /blog/:title
+permalink: /roby/:title
 pages_list:       
   About: '/roby/about'
   Atom: '/roby/atom.xml'
