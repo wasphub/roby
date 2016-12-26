@@ -9,14 +9,15 @@ Let's suppose we need a function which parses string, and for each one we want t
 	    this IEnumerable<string> source, 
 	    int someParam, string someOtherParam)
 	{
-	    return from item in source
-		   select new DTO
-		   {
-		       First  = item,
-		       Second = item.Length,
-		       Third  = new DateTime(2012, 1, 1),
-		       Fourth = 42
-		   };
+	    return 
+	    	from item in source
+		select new DTO
+		{
+		    First  = item,
+		    Second = item.Length,
+		    Third  = new DateTime(2012, 1, 1),
+		    Fourth = 42
+		};
 	}
 
 	public class DTO
@@ -45,18 +46,16 @@ In this new version we changed 2 things:
 
 This 'strange' signature is in fact very handy, and thanks to type inference we can modify our test call like this:
 
-	var parsed = from p in items.Parse(0, "wasp", 
-			 (first, second, third, fourth) => new
-			 {
-			     First  = first,
-			     Second = second,
-			     Third  = third,
-			     Fourth = fourth
-			 })
-		     where p.First
-			    .Equals("a", 
-				    StringComparison.OrdinalIgnoreCase)
-		     select p;
+	var parsed = 
+	    from p in items.Parse(0, "wasp", (first, second, third, fourth) => new
+	    {
+	    	First  = first,
+		Second = second,
+ 	     	Third  = third,
+		Fourth = fourth
+	    })
+            where p.First.Equals("a", StringComparison.OrdinalIgnoreCase)
+	    select p;
 
 The lambda expression we pass as the last parameter in the call defines an anonymous type, which thanks to type inference becomes the `Parse` function could therefore be something like this:
 
@@ -65,27 +64,26 @@ The lambda expression we pass as the last parameter in the call defines an anony
 	    int someParam, string someOtherParam, 
 	    Func<string, int, DateTime, decimal, T> resultor)
 	{
-	    return from item in source 
-		   select resultor 
-		   ( 
-		       item, 
-		       item.Length,
-		       new DateTime(2012, 1, 1), 
-		       42 
-		   ); 
+	    return 
+	    	from item in source 
+		select resultor 
+		( 
+		    item, 
+		    item.Length,
+		    new DateTime(2012, 1, 1), 
+		    42 
+		); 
 	}
 
 It's very similar to the original version, but the `Parse` like this:
 
-	var parsed = from p in items.Parse(0, "wasp", 
-			 (p1, _, ___, p2) => new
-			 {
-			     This  = p1,
-			     That = p2
-			 })
-		     where p.This
-			    .Equals("a",
-				    StringComparison.OrdinalIgnoreCase)
-		     select p;
+	var parsed = 
+	    from p in items.Parse(0, "wasp", (p1, _, ___, p2) => new
+	    {
+	        This  = p1,
+		That = p2
+	    })
+	    where p.This.Equals("a", StringComparison.OrdinalIgnoreCase)
+	    select p;
 
 I learned about this [at work](http://www.raboof.com), and there we name it the **resultor pattern**. So far I did not find anything around describing this technique explicily, Bill Wagner in one of his books talks about something similar but in a more basic way. It adds one more piece to our toolbox which helps us move our coding more 'into Linq'. It could be used in other contexts too, but it really shines inside Linq queries.
